@@ -25,20 +25,25 @@ const ReviewForm = ({ onReviewSubmitted }) => {
   };
 
   return (
-    <div className="flex flex-col bg-white shadow-lg rounded-lg p-6 h-full w-full">
-      <h2 className="text-lg text-black font-bold mb-4 p-3 mx-auto">
+    <div
+      className="flex flex-col bg-white/90 shadow-lg rounded-lg p-6 h-full w-full max-w-xl mx-auto"
+      style={{
+        background: "linear-gradient(109.6deg, #dfeaf7 11.2%, #f4f8fc 91.1%)",
+      }}
+    >
+      <h2 className="text-xl text-black font-bold mb-4 p-3 w-full text-center">
         Submit a Review
       </h2>
-      <form onSubmit={handleSubmit} className="space-y-4 w-1/2 mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-4 w-full">
         <textarea
-          className="bg-white w-full text-black p-2 border rounded"
+          className="bg-white text-black p-3 border border-gray-300 rounded focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition w-full resize-none min-h-[80px] placeholder:text-gray-400"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Enter your review..."
           required
         />
         <select
-          className="w-full bg-white text-black p-2 border rounded"
+          className="w-full bg-white text-black p-3 border border-gray-300 rounded focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition"
           value={rating}
           onChange={(e) => setRating(Number(e.target.value))}
         >
@@ -49,7 +54,7 @@ const ReviewForm = ({ onReviewSubmitted }) => {
           ))}
         </select>
         <button
-          className="bg-blue-600 text-white px-4 py-2 rounded w-1/2"
+          className="bg-blue-600 text-white px-6 py-2 rounded shadow w-full font-semibold hover:bg-blue-700 transition disabled:bg-gray-400"
           type="submit"
           disabled={loading}
         >
