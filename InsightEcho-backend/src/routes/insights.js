@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { getInsights } = require("../controllers/insightControler");
+const { getInsights } = require("../controllers/insightController");
 
 router.get("/insights", getInsights);
 

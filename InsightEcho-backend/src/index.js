@@ -17,9 +17,11 @@ app.use(express.json());
 
 // Import routes
 const reviewRoutes = require("./routes/reviews");
+const insightRoutes = require("./routes/insights");
 
 // Connect routes
 app.use("/api", reviewRoutes);
+app.use("/api", insightRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
