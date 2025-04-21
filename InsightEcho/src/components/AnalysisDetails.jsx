@@ -1,8 +1,10 @@
+import React from "react";
+
 const AnalysisDetails = ({ data }) => {
   if (!data) return null;
 
   return (
-    <div>
+    <div className="p-4">
       <p>
         <strong>Total Reviews:</strong> {data.totalReviews}
       </p>
@@ -56,7 +58,7 @@ const AnalysisDetails = ({ data }) => {
         <div>
           <h3 className="font-semibold text-lg">Top Positive Words</h3>
           <ul className="list-disc pl-6">
-            {data.topPositiveWords.map((word, index) => (
+            {data.topPositiveWords?.map((word, index) => (
               <li key={index}>
                 {word.word} (Score: {word.score.toFixed(2)})
               </li>
@@ -66,7 +68,7 @@ const AnalysisDetails = ({ data }) => {
         <div>
           <h3 className="font-semibold text-lg">Top Negative Words</h3>
           <ul className="list-disc pl-6">
-            {data.topNegativeWords.map((word, index) => (
+            {data.topNegativeWords?.map((word, index) => (
               <li key={index}>
                 {word.word} (Score: {word.score.toFixed(2)})
               </li>
@@ -79,7 +81,7 @@ const AnalysisDetails = ({ data }) => {
         <div>
           <h3 className="font-semibold text-lg">Top Positive Phrases</h3>
           <ul className="list-disc pl-6">
-            {data.topPositivePhrases.map((phrase, index) => (
+            {data.topPositivePhrases?.map((phrase, index) => (
               <li key={index}>
                 {phrase.phrase} (Score: {phrase.score.toFixed(2)})
               </li>
@@ -89,7 +91,7 @@ const AnalysisDetails = ({ data }) => {
         <div>
           <h3 className="font-semibold text-lg">Top Negative Phrases</h3>
           <ul className="list-disc pl-6">
-            {data.topNegativePhrases.map((phrase, index) => (
+            {data.topNegativePhrases?.map((phrase, index) => (
               <li key={index}>
                 {phrase.phrase} (Score: {phrase.score.toFixed(2)})
               </li>
@@ -102,7 +104,7 @@ const AnalysisDetails = ({ data }) => {
         <div>
           <h3 className="font-semibold text-lg">Frequent Positive Phrases</h3>
           <ul className="list-disc pl-6">
-            {data.frequentPositivePhrases.map((phrase, index) => (
+            {data.frequentPositivePhrases?.map((phrase, index) => (
               <li key={index}>
                 {phrase.phrase} (Score: {phrase.score.toFixed(2)})
               </li>
@@ -112,7 +114,7 @@ const AnalysisDetails = ({ data }) => {
         <div>
           <h3 className="font-semibold text-lg">Frequent Negative Phrases</h3>
           <ul className="list-disc pl-6">
-            {data.frequentNegativePhrases.map((phrase, index) => (
+            {data.frequentNegativePhrases?.map((phrase, index) => (
               <li key={index}>
                 {phrase.phrase} (Score: {phrase.score.toFixed(2)})
               </li>
