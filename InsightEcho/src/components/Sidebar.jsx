@@ -2,20 +2,28 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="w-64 bg-gray-900 text-white h-full p-4">
-      <h2 className="text-xl font-bold mb-6">Menu</h2>
-      <ul>
-        <li className="mb-4">
-          <Link to="/reviews" className="hover:text-gray-400">
+    <div className="w-64 h-full rounded-2xl my-8 ml-8 shadow-xl bg-gradient-to-br from-white via-blue-50 to-blue-100 border border-blue-100 flex flex-col p-8">
+      <div className="flex items-center gap-2 mb-8">
+        <h2 className="text-xl font-bold text-blue-900 tracking-tight">
+          Dashboard
+        </h2>
+      </div>
+      <ul className="flex flex-col gap-2">
+        <li>
+          <Link to="/reviews" className="hover:text-gray-300 transition-colors">
             Reviews
           </Link>
         </li>
         <li>
-          <Link to="/analysis" className="hover:text-gray-400">
+          <Link
+            to="/analysis"
+            className="hover:text-gray-300 transition-colors"
+          >
             Analysis
           </Link>
         </li>
       </ul>
+      <div className="flex-1" />
     </div>
   );
 };
