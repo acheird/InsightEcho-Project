@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Reviews from "./pages/Reviews";
-import Analysis from "./components/Analysis";
+import Analysis from "./pages/Analysis";
 import Header from "./components/Header";
 
 function App() {
