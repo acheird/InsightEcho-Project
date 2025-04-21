@@ -1,5 +1,5 @@
 const pool = require("../db");
-const { calculateSentiment } = require("../utils/calculateSentiment");
+const { calculateSentiment } = require("../services/calculateSentiment");
 
 const addReview = async (req, res) => {
   const { text, rating } = req.body;
