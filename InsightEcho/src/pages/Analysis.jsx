@@ -27,7 +27,7 @@ const Analysis = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-blue-50 p-4 rounded-2xl">
       <div className="max-w-3xl w-full mx-auto bg-white shadow-lg rounded-lg p-6">
         {loading ? (
           <div className="w-full flex flex-col items-center justify-center h-[200px] animate-pulse">
