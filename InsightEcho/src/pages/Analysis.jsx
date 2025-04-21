@@ -26,14 +26,33 @@ const Analysis = () => {
     getData();
   }, []);
 
-  if (loading) return <p>Loading analysis...</p>;
-  if (!data) return <p>No data available</p>;
-
   return (
-    <div className="bg-white text-black shadow-lg rounded-lg p-6 w-full max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Sentiment Analysis Results</h2>
-      <AnalysisDetails data={data} />
-      <AnalysisInsights insights={insights} />
+    <div className="min-h-screen flex items-center justify-center bg-blue-50 p-4">
+      <div className="max-w-3xl w-full mx-auto bg-white shadow-lg rounded-lg p-6">
+        {loading ? (
+          <div className="w-full flex flex-col items-center justify-center h-[200px] animate-pulse">
+            <div className="h-6 w-2/3 bg-gray-200 rounded mb-4" />
+            <div className="h-4 w-full bg-gray-100 rounded mb-2" />
+            <div className="h-4 w-1/2 bg-gray-100 rounded" />
+          </div>
+        ) : !data ? (
+          <div className="text-center text-gray-500 font-medium py-16">
+            No data available.
+          </div>
+        ) : (
+          <>
+            <h2 className="text-3xl text-center font-bold mb-4 text-blue-600">
+              Sentiment Analysis Results
+            </h2>
+            <div className="mb-6">
+              <AnalysisDetails data={data} />
+            </div>
+            <div>
+              <AnalysisInsights insights={insights} />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
