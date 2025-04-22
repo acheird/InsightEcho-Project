@@ -4,6 +4,7 @@ import { submitReview } from "../api";
 const ReviewForm = ({ onReviewSubmitted }) => {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(3);
+  const [organization, setOrganization] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -11,9 +12,10 @@ const ReviewForm = ({ onReviewSubmitted }) => {
     setLoading(true);
 
     try {
-      await submitReview({ text, rating });
+      await submitReview({ text, rating, organization });
       setText(""); // Reset form
       setRating(3);
+      setOrganization("");
       if (onReviewSubmitted) {
         onReviewSubmitted();
       }
@@ -35,6 +37,14 @@ const ReviewForm = ({ onReviewSubmitted }) => {
         Submit a Review
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4 w-full">
+        <input
+          className="w-full bg-white text-black p-3 border border-gray-300 rounded focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition"
+          type="text"
+          name="organization"
+          placeholder="Organization"
+          value={organization}
+          onChange={(e) => setOrganization(e.target.value)}
+        />
         <textarea
           className="bg-white text-black p-3 border border-gray-300 rounded focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition w-full resize-none min-h-[80px] placeholder:text-gray-400"
           value={text}

@@ -2,16 +2,16 @@ const pool = require("../db");
 const { calculateSentiment } = require("../services/calculateSentiment");
 
 const addReview = async (req, res) => {
-  const { text, rating } = req.body;
+  const { text, rating, organization } = req.body;
 
-  if (!text || !rating) {
+  if (!text || !rating || !organization) {
     return res.status(400).json({ error: "Text and rating are required" });
   }
 
   try {
     const result = await pool.query(
-      "INSERT INTO reviews (text, rating) VALUES ($1, $2) RETURNING *",
-      [text, rating]
+      "INSERT INTO reviews (text, rating, organization) VALUES ($1, $2, $3) RETURNING *",
+      [text, rating, organization]
     );
     res.json(result.rows[0]); // Return the stored review
   } catch (error) {
