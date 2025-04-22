@@ -1,4 +1,12 @@
 const AnalysisDetails = ({ data }) => {
+  const DISTRIBUTION_COLORS = {
+    stronglyPositive: "bg-green-400",
+    mildlyPositive: "bg-green-200",
+    neutral: "bg-gray-400",
+    mildlyNegative: "bg-red-200",
+    stronglyNegative: "bg-red-400",
+  };
+
   if (!data) return null;
 
   return (
@@ -52,23 +60,26 @@ const AnalysisDetails = ({ data }) => {
         <div className="rounded-lg bg-white/60 shadow p-5 border mt-6">
           <h3 className="font-semibold mb-2 text-lg">Sentiment Distribution</h3>
           <ul className="flex flex-col gap-3">
-            {Object.entries(data.sentimentBuckets).map(([label, count]) => (
-              <li key={label} className="flex items-center gap-2">
-                <span className="w-32 text-xs md:text-sm capitalize">
-                  {label.replace(/([a-z])([A-Z])/g, "$1 $2")}
-                </span>
-                <div className="w-full h-3 rounded bg-gray-200 relative">
-                  <div
-                    className={`bg-blue-400 absolute left-0 top-0 h-full rounded`}
-                    style={{
-                      width: `${(count / data.totalReviews) * 100}%`,
-                      transition: "width 0.5s",
-                    }}
-                  ></div>
-                </div>
-                <span className="w-7 text-right text-xs">{count}</span>
-              </li>
-            ))}
+            {Object.entries(data.sentimentBuckets).map(([label, count]) => {
+              const bgColor = DISTRIBUTION_COLORS[label] || "bg-blue-400"; // fallback color
+              return (
+                <li key={label} className="flex items-center gap-2">
+                  <span className="w-32 text-xs md:text-sm capitalize">
+                    {label.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                  </span>
+                  <div className="w-full h-3 rounded bg-gray-200 relative">
+                    <div
+                      className={`${bgColor} absolute left-0 top-0 h-full rounded`}
+                      style={{
+                        width: `${(count / data.totalReviews) * 100}%`,
+                        transition: "width 0.5s",
+                      }}
+                    ></div>
+                  </div>
+                  <span className="w-7 text-right text-xs">{count}</span>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
@@ -96,6 +107,7 @@ const AnalysisDetails = ({ data }) => {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        {/* Positive Words */}
         <div className="bg-green-50 rounded-lg p-4 border border-green-200">
           <h3 className="font-semibold text-green-900 text-sm mb-2">
             Top Positive Words

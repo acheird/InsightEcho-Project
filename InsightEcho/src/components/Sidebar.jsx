@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="w-64 h-full rounded-2xl my-8 ml-8 shadow-xl bg-gradient-to-br from-white via-blue-50 to-blue-100 border border-blue-100 flex flex-col p-8">
+    <div className="w-64 rounded-2xl my-8 ml-8 shadow-xl bg-gradient-to-br from-white via-blue-50 to-blue-100 border border-blue-100 flex flex-col p-8">
       <div className="flex items-center gap-2 mb-8">
-        <h2 className="text-xl font-bold text-blue-900 tracking-tight">
+        <h2 className="text-xl font-bold text-blue-600 tracking-tight">
           Dashboard
         </h2>
       </div>

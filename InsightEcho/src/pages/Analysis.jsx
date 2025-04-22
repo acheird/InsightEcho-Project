@@ -41,7 +41,7 @@ const Analysis = () => {
           </div>
         ) : (
           <>
-            <h2 className="text-3xl text-center font-bold mb-4 text-blue-600">
+            <h2 className="text-3xl text-center font-bold mb-4 text-blue-900 tracking-tight">
               Sentiment Analysis Results
             </h2>
             <div className="mb-6">
