@@ -4,11 +4,13 @@ const router = express.Router();
 
 // Import controller functions for handling review related logic
 const { addReview, getAnalysis } = require("../controllers/reviewController");
+const { getOrganizations } = require("../controllers/organizationController");
 
 // Define a POST route to add a new review
 router.post("/reviews", addReview);
 
 // Define a GET route to analyze sentiment based on reviews
 router.get("/analysis", getAnalysis);
+router.get("/organizations", getOrganizations);
 
 module.exports = router;

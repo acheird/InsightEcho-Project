@@ -20,11 +20,16 @@ const addReview = async (req, res) => {
 };
 
 const getAnalysis = async (req, res) => {
-  //console.log("Fetching reviews from database...");
+  const organization = req.query.organization;
   try {
-    const result = await pool.query("SELECT text, rating FROM reviews");
+    const query = organization
+      ? "SELECT text, rating FROM reviews WHERE organization = $1"
+      : "SELECT text, rating FROM reviews";
 
-    //console.log("Query executed!");
+    const result = organization
+      ? await pool.query(query, [organization])
+      : await pool.query(query);
+
     const reviews = result.rows;
     //console.log("Fetched reviews:", reviews);
     //console.log("Fetched reviews:", reviews.length);
