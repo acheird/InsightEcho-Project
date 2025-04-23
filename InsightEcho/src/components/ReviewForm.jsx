@@ -13,7 +13,7 @@ const ReviewForm = ({ onReviewSubmitted }) => {
 
     try {
       await submitReview({ text, rating, organization });
-      setText(""); // Reset form
+      setText("");
       setRating(3);
       setOrganization("");
       if (onReviewSubmitted) {
