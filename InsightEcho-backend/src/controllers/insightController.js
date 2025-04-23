@@ -1,17 +1,14 @@
 const pool = require("../db");
 const { calculateSentiment } = require("../services/calculateSentiment");
 const { generateInsights } = require("../services/generateInsights");
+const { buildReviewQuery } = require("../utils/queryBuilder");
 
 const getInsights = async (req, res) => {
-  const org = req.query.org || null;
+  const organization = req.query.organization || null;
 
   try {
-    const result = org
-      ? await pool.query(
-          "SELECT text, rating FROM reviews WHERE organization = $1",
-          [org]
-        )
-      : await pool.query("SELECT text, rating FROM reviews");
+    const { text, values } = buildReviewQuery(organization);
+    const result = await pool.query(text, values);
 
     const reviews = result.rows;
 

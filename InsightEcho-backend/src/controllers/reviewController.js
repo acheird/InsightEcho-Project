@@ -1,5 +1,6 @@
 const pool = require("../db");
 const { calculateSentiment } = require("../services/calculateSentiment");
+const { buildReviewQuery } = require("../utils/queryBuilder");
 
 const addReview = async (req, res) => {
   const { text, rating, organization } = req.body;
@@ -20,19 +21,12 @@ const addReview = async (req, res) => {
 };
 
 const getAnalysis = async (req, res) => {
-  const organization = req.query.organization;
+  const organization = req.query.organization || null;
   try {
-    const query = organization
-      ? "SELECT text, rating FROM reviews WHERE organization = $1"
-      : "SELECT text, rating FROM reviews";
-
-    const result = organization
-      ? await pool.query(query, [organization])
-      : await pool.query(query);
+    const { text, values } = buildReviewQuery(organization);
+    const result = await pool.query(text, values);
 
     const reviews = result.rows;
-    //console.log("Fetched reviews:", reviews);
-    //console.log("Fetched reviews:", reviews.length);
 
     if (reviews.length === 0) {
       return res.json({ message: "There are not reviews for analysis" });
