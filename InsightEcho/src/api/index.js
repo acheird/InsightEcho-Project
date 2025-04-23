@@ -4,36 +4,58 @@ const API_BASE_URL = "http://localhost:5000/api";
 
 export const fetchAnalysis = async (organization) => {
   try {
-    const orgParam =
-      organization && organization !== "All"
-        ? `?organization=${organization}`
-        : "";
-    const res = await fetch(`${API_BASE_URL}/analysis${orgParam}`);
-    return await res.json();
+    const response = await axios.get(`${API_BASE_URL}/analysis`, {
+      params: organization && organization !== "All" ? { organization } : {},
+    });
+    return response.data;
   } catch (error) {
-    console.error("Error fetching analysis", error);
+    console.error("Error fetching analysis:", error);
     return null;
   }
 };
 
 export const submitReview = async (review) => {
-  return axios.post(`${API_BASE_URL}/reviews`, review);
+  try {
+    const response = await axios.post(`${API_BASE_URL}/reviews`, review);
+    return response.data;
+  } catch (error) {
+    console.error("Error submitting review:", error);
+    throw error;
+  }
 };
 
-export const fetchInsights = async (org) => {
-  const response = await axios.get(`${API_BASE_URL}/insights`, {
-    params: { org },
-  });
-  return response.data;
+export const fetchInsights = async (organization) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/insights`, {
+      params: organization && organization !== "All" ? { organization } : {},
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching insights:", error);
+    return [];
+  }
 };
 
 export const fetchOrganizations = async () => {
   try {
-    const res = await fetch(`${API_BASE_URL}/organizations`);
-    const data = await res.json();
-    return data.organizations;
+    const response = await axios.get(`${API_BASE_URL}/organizations`);
+    return response.data.organizations;
   } catch (error) {
-    console.error("Error fetching organizations", error);
+    console.error("Error fetching organizations:", error);
     return [];
   }
 };
+
+// export const uploadCSV = async (formData) => {
+//   try {
+//     const response = await axios.post(`${API_BASE_URL}/bulk-upload`, formData, {
+//       headers: {
+//         "Content-Type": "multipart/form-data",
+//       },
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error uploading CSV:", error);
+//     throw error;
+//   }
+// };
