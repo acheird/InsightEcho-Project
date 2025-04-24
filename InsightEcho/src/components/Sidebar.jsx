@@ -11,7 +11,15 @@ const Sidebar = () => {
       <ul className="flex flex-col gap-2">
         <li>
           <Link to="/reviews" className="hover:text-gray-300 transition-colors">
-            Reviews
+            Add a Review
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/upload-csv"
+            className="hover:text-gray-300 transition-colors"
+          >
+            Upload Reviews
           </Link>
         </li>
         <li>

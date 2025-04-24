@@ -8,10 +8,12 @@ app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
 // Import routes
+const csvRoutes = require("./routes/csvUpload");
 const reviewRoutes = require("./routes/reviews");
 const insightRoutes = require("./routes/insights");
 
 // Connect routes
+app.use("/api", csvRoutes);
 app.use("/api", reviewRoutes);
 app.use("/api", insightRoutes);
 

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Reviews from "./pages/Reviews";
 import Analysis from "./pages/Analysis";
+import UploadCSV from "./components/UploadCSV";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Reviews />} />
             <Route path="/reviews" element={<Reviews />} />
+            <Route path="/upload-csv" element={<UploadCSV />} />
             <Route path="/analysis" element={<Analysis />} />
           </Routes>
         </div>

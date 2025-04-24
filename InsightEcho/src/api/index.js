@@ -46,16 +46,16 @@ export const fetchOrganizations = async () => {
   }
 };
 
-// export const uploadCSV = async (formData) => {
-//   try {
-//     const response = await axios.post(`${API_BASE_URL}/bulk-upload`, formData, {
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//       },
-//     });
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error uploading CSV:", error);
-//     throw error;
-//   }
-// };
+export const uploadCSV = async (formData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/upload-csv`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error uploading CSV:", error);
+    throw error;
+  }
+};
