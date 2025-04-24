@@ -5,7 +5,7 @@ const API_BASE_URL = "http://localhost:5000/api";
 export const fetchAnalysis = async (organization) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/analysis`, {
-      params: organization && organization !== "All" ? { organization } : {},
+      params: organization && organization !== "all" ? { organization } : {},
     });
     return response.data;
   } catch (error) {
@@ -27,7 +27,7 @@ export const submitReview = async (review) => {
 export const fetchInsights = async (organization) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/insights`, {
-      params: organization && organization !== "All" ? { organization } : {},
+      params: organization && organization !== "all" ? { organization } : {},
     });
     return response.data;
   } catch (error) {

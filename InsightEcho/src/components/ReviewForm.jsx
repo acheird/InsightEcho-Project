@@ -57,11 +57,18 @@ const ReviewForm = ({ onReviewSubmitted }) => {
           value={rating}
           onChange={(e) => setRating(Number(e.target.value))}
         >
-          {[1, 2, 3, 4, 5].map((num) => (
+          {/* {[1, 2, 3, 4, 5].map((num) => (
             <option key={num} value={num}>
               {num} Stars
             </option>
-          ))}
+          ))} */}
+          {Array(5)
+            .fill()
+            .map((_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1} Stars
+              </option>
+            ))}
         </select>
         <button
           className="bg-blue-600 text-white px-6 py-2 rounded shadow w-full font-semibold hover:bg-blue-700 transition disabled:bg-gray-400"

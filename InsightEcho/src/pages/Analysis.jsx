@@ -55,7 +55,7 @@ const Analysis = () => {
                   {o}
                 </option>
               ))}
-              <option value="All">All</option>
+              <option value="all">All</option>
             </select>
           </label>
         </div>

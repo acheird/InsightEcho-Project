@@ -1,5 +1,5 @@
 const buildReviewQuery = (organization) => {
-  if (!organization || organization === "All" || organization === "") {
+  if (!organization || organization === "all" || organization === "") {
     return {
       text: "SELECT text, rating FROM reviews",
       values: [],
