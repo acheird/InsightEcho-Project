@@ -1,41 +1,26 @@
-const csv = require("csv-parser");
-const pool = require("../db");
+const parseCSV = require("../utils/csvParser");
+const validateReview = require("../utils/validateReview");
+const { insertReviews } = require("../services/reviewService");
 
 const bulkUpload = async (req, res) => {
-  const results = [];
-
   try {
     if (!req.file) {
       return res.status(400).json({ error: "No CSV file provided" });
     }
 
-    const buffer = req.file.buffer;
+    const parsedReviews = await parseCSV(req.file.buffer);
 
-    buffer
-      .toString()
-      .split("\n")
-      .slice(1) // skip header
-      .forEach((line) => {
-        const [text, rating, organization] = line.split(",");
-        if (text && rating && organization) {
-          results.push({
-            text: text.trim(),
-            rating: Number(rating),
-            organization: organization.trim(),
-          });
-        }
-      });
+    const validReviews = parsedReviews.filter(validateReview);
 
-    const insertPromises = results.map((r) =>
-      pool.query(
-        "INSERT INTO reviews (text, rating, organization) VALUES ($1, $2, $3)",
-        [r.text, r.rating, r.organization]
-      )
-    );
+    if (validReviews.length === 0) {
+      return res.status(400).json({ error: "No valid reviews found in CSV" });
+    }
 
-    await Promise.all(insertPromises);
+    await insertReviews(validReviews);
 
-    res.status(200).json({ message: `Inserted ${results.length} reviews.` });
+    res
+      .status(200)
+      .json({ message: `Inserted ${validReviews.length} reviews.` });
   } catch (error) {
     console.error("CSV Upload Error:", error);
     res.status(500).json({ error: "Error processing CSV file" });
