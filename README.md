@@ -39,11 +39,9 @@ You can view the full commit history in their respective repositories.
 
 ### 2. Setup Backend
 
-``
 cd InsightEcho-backend  
 npm install            # Install backend dependencies  
 cp .env.example .env   # Create your .env file  
-``
 
 - Edit .env and add your PostgreSQL credentials:
 
