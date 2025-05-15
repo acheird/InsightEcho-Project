@@ -40,24 +40,24 @@ You can view the full commit history in their respective repositories.
 ### 2. Setup Backend
 
 cd InsightEcho-backend  
-npm install            # Install backend dependencies  
-cp .env.example .env   # Create your .env file  
+npm install              # Install backend dependencies  
+cp .env.example .env     # Create your .env file  
 
-- Edit .env and add your PostgreSQL credentials:
+### Edit .env and add your PostgreSQL credentials:
 
-``DB_USER=your_db_user
-DB_PASS=your_db_password
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=insightecho_db
-PORT=5000``
+DB_USER=your_db_user  
+DB_PASS=your_db_password  
+DB_HOST=localhost  
+DB_PORT=5432  
+DB_NAME=insightecho_db  
+PORT=5000  
 
-Start the backend server:
+### Start the backend server:
 
-``npm run dev``
+npm run dev  
 
 ### 3. Setup Frontend
 
-``cd ../InsightEcho-frontend
-npm install            # Install frontend dependencies
-npm run dev            # Start the Vite dev server ``
+cd ../InsightEcho-frontend  
+npm install              # Install frontend dependencies  
+npm run dev              # Start the Vite dev server  
