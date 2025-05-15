@@ -21,43 +21,14 @@ You can view the full commit history in their respective repositories.
 
 ## Tech Stack
 
-### 🖥 Frontend
+### Frontend
 - React + Vite
 - Tailwind CSS
 - React Query (for data fetching)
 - Axios
 
-### 🧠 Backend
+### Backend
 - Node.js + Express
 - PostgreSQL
 - `sentiment`, `natural` (for NLP)
 - `multer`, `csv-parser` (for file uploads)
-
-
-## ⚙️ Setup Instructions
-
-### 1. Clone the Repository
-
-#### 2.  Setup Backend
-
-cd InsightEcho-backend
-npm install
-
-3. Edit .env and provide your PostgreSQL credentials:
-
-DB_USER=your_db_user
-DB_PASS=your_db_password
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=insightecho_db
-PORT=5000
-
-4. Then run:
-
-npm run dev
-
-#### 2.  Setup Frontend
-
-cd ../InsightEcho-frontend
-npm install
-npm run dev
