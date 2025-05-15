@@ -34,11 +34,11 @@ You can view the full commit history in their respective repositories.
 - `multer`, `csv-parser` (for file uploads)
 
 
-# ⚙️ Setup Instructions
+## ⚙️ Setup Instructions
 
-## 1. Clone the Repository
+### 1. Clone the Repository
 
-### 2.  Setup Backend
+#### 2.  Setup Backend
 
 cd InsightEcho-backend
 npm install
@@ -56,7 +56,7 @@ PORT=5000
 
 npm run dev
 
-### 2.  Setup Frontend
+#### 2.  Setup Frontend
 
 cd ../InsightEcho-frontend
 npm install
