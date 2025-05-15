@@ -40,12 +40,12 @@ You can view the full commit history in their respective repositories.
 ### 2. Setup Backend
 
 ``
-cd InsightEcho-backend
-npm install            # Install backend dependencies
-cp .env.example .env   # Create your .env file 
+cd InsightEcho-backend **<br>**
+npm install            # Install backend dependencies <br>
+cp .env.example .env   # Create your .env file <br>
 ``
 
-✏️ Edit .env and add your PostgreSQL credentials:
+- Edit .env and add your PostgreSQL credentials:
 
 ``DB_USER=your_db_user
 DB_PASS=your_db_password
