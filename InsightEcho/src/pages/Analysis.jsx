@@ -11,23 +11,53 @@ const Analysis = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadOrgs = async () => {
-      const organizations = await fetchOrganizations();
-      setOrgs(organizations);
-      if (organizations.length > 0) {
-        setOrg(organizations[0]);
+    const loadOrgsAndData = async () => {
+      try {
+        const organizations = await fetchOrganizations();
+        setOrgs(organizations);
+
+        const savedOrg = localStorage.getItem("selectedOrg");
+
+        let selectedOrg = "";
+
+        if (savedOrg && organizations.includes(savedOrg)) {
+          selectedOrg = savedOrg;
+        } else if (organizations.length > 0) {
+          selectedOrg = organizations[0];
+        }
+
+        setOrg(selectedOrg);
+
+        if (selectedOrg) {
+          const [analysisData, insightsData] = await Promise.all([
+            fetchAnalysis(selectedOrg),
+            fetchInsights(selectedOrg),
+          ]);
+          setData(analysisData);
+          setInsights(insightsData);
+        }
+      } catch (error) {
+        console.error("Failed to load organizations or analysis data", error);
+      } finally {
+        setLoading(false);
       }
     };
-    loadOrgs();
+
+    loadOrgsAndData();
   }, []);
 
   useEffect(() => {
+    if (!org) return;
+
+    localStorage.setItem("selectedOrg", org);
     const getData = async () => {
       try {
-        const analysisData = await fetchAnalysis(org);
+        setLoading(true);
+        const [analysisData, insightData] = await Promise.all([
+          fetchAnalysis(org),
+          fetchInsights(org),
+        ]);
         setData(analysisData);
-
-        const insightData = await fetchInsights(org);
         setInsights(insightData);
       } catch (error) {
         console.error("Failed to fetch analysis or insights", error);
@@ -36,7 +66,7 @@ const Analysis = () => {
       }
     };
 
-    if (org) getData();
+    getData();
   }, [org]);
 
   return (
