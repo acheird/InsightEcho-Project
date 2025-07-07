@@ -46,9 +46,10 @@ export const fetchOrganizations = async () => {
   }
 };
 
-export const uploadCSV = async (formData) => {
+export const uploadCSV = async (formData, preview = true) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/upload-csv`, formData, {
+    const url = `${API_BASE_URL}/upload-csv${preview ? "?preview=true" : ""}`;
+    const response = await axios.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

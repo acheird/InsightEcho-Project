@@ -1,23 +1,15 @@
 const validateReview = (review) => {
   const { text, rating, organization } = review;
-  const errors = [];
 
-  if (typeof text !== "string" || text.trim() === "") {
-    errors.push('Missing or invalid "text"');
-  }
+  if (typeof text !== "string" || text.trim() === "") return false;
+  if (typeof organization !== "string" || organization.trim() === "")
+    return false;
 
-  if (typeof organization !== "string" || organization.trim() === "") {
-    errors.push('Missing or invalid "organization"');
-  }
+  const numericRating = Number(rating);
+  if (!Number.isFinite(numericRating) || numericRating < 1 || numericRating > 5)
+    return false;
 
-  if (isNaN(rating) || rating < 1 || rating > 5) {
-    errors.push('Invalid or missing "rating" (must be between 1 and 5)');
-  }
-
-  return {
-    isValid: errors.length === 0,
-    errors,
-  };
+  return true;
 };
 
 module.exports = validateReview;
