@@ -89,9 +89,14 @@ const UploadCSV = () => {
             <div className="mt-4 max-h-40 overflow-auto border rounded p-2 bg-red-50">
               <h4 className="font-medium mb-1">Invalid Rows (sample):</h4>
               <ul className="text-xs space-y-1">
-                {previewResults.invalidReviews.map((row, idx) => (
+                {previewResults.invalidReviews.map((entry, idx) => (
                   <li key={idx} className="bg-red-200 p-1 rounded">
-                    {JSON.stringify(row)}
+                    <div>{JSON.stringify(entry.review)}</div>
+                    <ul className="list-disc ml-4 text-red-800">
+                      {entry.errors.map((err, errIdx) => (
+                        <li key={errIdx}>{err}</li>
+                      ))}
+                    </ul>
                   </li>
                 ))}
               </ul>
