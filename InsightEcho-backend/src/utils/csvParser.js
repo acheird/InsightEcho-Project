@@ -12,8 +12,11 @@ const parseCSV = (buffer) => {
       .on("data", (data) => {
         results.push({
           text: data.text?.trim(),
-          rating: Number(data.rating),
+          rating: data.rating,
           organization: data.organization?.trim(),
+          reviewed_at: data.reviewed_at
+            ? new Date(data.reviewed_at.trim())
+            : null,
         });
       })
       .on("end", () => {

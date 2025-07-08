@@ -14,10 +14,11 @@ const bulkUpload = async (req, res) => {
     const invalidReviews = [];
 
     for (const review of parsedReviews) {
-      if (validateReview(review)) {
+      const { isValid, errors } = validateReview(review);
+      if (isValid) {
         validReviews.push(review);
       } else {
-        invalidReviews.push(review);
+        invalidReviews.push({ review, errors });
       }
     }
 

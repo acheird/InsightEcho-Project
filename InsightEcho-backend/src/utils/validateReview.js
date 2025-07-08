@@ -1,15 +1,34 @@
 const validateReview = (review) => {
-  const { text, rating, organization } = review;
+  const errors = [];
 
-  if (typeof text !== "string" || text.trim() === "") return false;
-  if (typeof organization !== "string" || organization.trim() === "")
-    return false;
+  if (typeof review.text !== "string" || review.text.trim() === "") {
+    errors.push("Missing or invalid 'text'");
+  }
 
-  const numericRating = Number(rating);
-  if (!Number.isFinite(numericRating) || numericRating < 1 || numericRating > 5)
-    return false;
+  if (
+    typeof review.organization !== "string" ||
+    review.organization.trim() === ""
+  ) {
+    errors.push("Missing or invalid 'organization'");
+  }
 
-  return true;
+  const numericRating = Number(review.rating);
+  if (
+    !Number.isFinite(numericRating) ||
+    numericRating < 1 ||
+    numericRating > 5
+  ) {
+    errors.push("Rating must be a number between 1 and 5");
+  }
+
+  if (!review.reviewed_at || isNaN(Date.parse(review.reviewed_at))) {
+    errors.push("Missing or invalid 'reviewed_at' date");
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+  };
 };
 
 module.exports = validateReview;
