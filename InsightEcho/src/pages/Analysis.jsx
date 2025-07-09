@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BarChart3, Loader2 } from "lucide-react";
 import { fetchAnalysis, fetchInsights, fetchOrganizations } from "../api";
 import AnalysisDetails from "../components/AnalysisDetails";
 import AnalysisInsights from "../components/AnalysisInsights";
@@ -70,45 +71,80 @@ const Analysis = () => {
   }, [org]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-50 p-4 rounded-2xl">
-      <div className="max-w-3xl w-full mx-auto bg-white shadow-lg rounded-lg p-6">
-        <div className="mb-6">
-          <label className="block mb-4">
-            <span className="font-semibold">Select Organization:</span>
-            <select
-              value={org}
-              onChange={(e) => setOrg(e.target.value)}
-              className="ml-2 border p-1 rounded bg-white"
-            >
-              {orgs.map((o) => (
-                <option key={o} value={o}>
-                  {o}
-                </option>
-              ))}
-              <option value="all">All</option>
-            </select>
-          </label>
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 p-4">
+      <div className="max-w-6xl w-full mx-auto">
+        {/* Header + Selector */}
+        <div className="bg-white rounded-xl shadow-lg mb-4">
+          {" "}
+          {/* reduced mb from 6 to 4 */}
+          <div className="p-4 sm:p-6">
+            {" "}
+            {/* reduced padding slightly */}
+            <div className="flex items-center gap-2 mb-3">
+              {" "}
+              {/* reduced mb */}
+              <BarChart3 className="text-primary" size={20} />{" "}
+              {/* reduced size */}
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground">
+                {" "}
+                {/* smaller on small screens */}
+                Sentiment Analysis Dashboard
+              </h1>
+            </div>
+            <div className="flex items-center gap-3">
+              {" "}
+              {/* reduced gap */}
+              <label className="text-sm font-medium text-foreground">
+                Select Organization:
+              </label>
+              <select
+                value={org}
+                onChange={(e) => setOrg(e.target.value)}
+                className="bg-background text-foreground border border-input rounded-md px-2 py-1.5 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors text-sm"
+              >
+                {orgs.map((o) => (
+                  <option key={o} value={o}>
+                    {o}
+                  </option>
+                ))}
+                <option value="all">All Organizations</option>
+              </select>
+            </div>
+          </div>
         </div>
 
+        {/* Loading state */}
         {loading ? (
-          <div className="w-full flex flex-col items-center justify-center h-[200px] animate-pulse">
-            <div className="h-6 w-2/3 bg-gray-200 rounded mb-4" />
-            <div className="h-4 w-full bg-gray-100 rounded mb-2" />
-            <div className="h-4 w-1/2 bg-gray-100 rounded" />
+          <div className="bg-white rounded-xl shadow-lg">
+            <div className="flex flex-col items-center justify-center p-10">
+              {" "}
+              {/* reduced p-16 to p-10 */}
+              <Loader2 className="h-6 w-6 animate-spin text-primary mb-3" />{" "}
+              {/* smaller loader */}
+              <p className="text-muted-foreground text-sm">
+                Loading analysis data...
+              </p>
+            </div>
           </div>
         ) : !data ? (
-          <div className="text-center text-gray-500 font-medium py-16">
-            No data available.
+          <div className="bg-white rounded-xl shadow-lg">
+            <div className="text-center p-10">
+              {" "}
+              {/* reduced padding */}
+              <BarChart3 className="h-10 w-10 text-muted-foreground mx-auto mb-3" />{" "}
+              {/* smaller icon */}
+              <p className="text-foreground font-medium text-base">
+                No data available
+              </p>
+              <p className="text-muted-foreground text-sm">
+                Try selecting a different organization
+              </p>
+            </div>
           </div>
         ) : (
           <>
-            <h2 className="text-3xl text-center font-bold mb-4 text-blue-900 tracking-tight">
-              Sentiment Analysis Results
-            </h2>
-            <div className="mb-6">
+            <div className="space-y-6">
               <AnalysisDetails data={data} />
-            </div>
-            <div>
               <AnalysisInsights insights={insights} />
             </div>
           </>
