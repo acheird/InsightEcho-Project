@@ -1,66 +1,44 @@
-const generateInsights = (data) => {
-  const insights = [];
+const config = require("./insightConfig.json");
 
-  // Avg sentiment
-  if (data.averageSentiment < 0) {
-    insights.push(
-      "Overall sentiment is negative. Consider investigating frequent complaints."
-    );
-  } else if (data.averageSentiment < 5) {
-    insights.push(
-      "Sentiment is mixed. Improvements in certain areas might help."
-    );
-  } else {
-    insights.push(
-      "Sentiment is generally positive. Keep doing what’s working!"
-    );
+function generateInsights(processedReviews) {
+  let insights = [];
+  let sentimentSum = 0;
+  const themeCounts = {};
+
+  for (let theme in config.themes) {
+    themeCounts[theme] = 0;
   }
 
-  // Check negative themes
-  if (data.themeSentiment) {
-    Object.entries(data.themeSentiment).forEach(([theme, stats]) => {
-      if (stats.average < 0) {
-        insights.push(
-          `Sentiment around "${theme}" is negative. You may want to review feedback related to this.`
-        );
+  processedReviews.forEach((review) => {
+    const { sentimentScore, cleanedText } = review;
+    sentimentSum += sentimentScore;
+
+    for (let theme in config.themes) {
+      for (let keyword of config.themes[theme]) {
+        if (cleanedText.includes(keyword)) {
+          themeCounts[theme]++;
+          break;
+        }
       }
-    });
-  }
+    }
+  });
 
-  // Strongly negative reviews
-  if (data.sentimentBuckets?.stronglyNegative > 0) {
+  const avgSentiment = sentimentSum / processedReviews.length;
+
+  if (avgSentiment < config.thresholds.stronglyNegative) {
     insights.push(
-      `There are ${data.sentimentBuckets.stronglyNegative} strongly negative reviews — address the causes quickly.`
+      "Overall reviews are strongly negative. Urgent action needed."
     );
+  } else if (avgSentiment < config.thresholds.neutral) {
+    insights.push("Reviews are slightly negative. Identify weak areas.");
+  } else if (avgSentiment > config.thresholds.stronglyPositive) {
+    insights.push("Reviews are very positive. Keep up the good work!");
   }
 
-  // Positive phrases
-  if (
-    data.frequentPositivePhrases?.length &&
-    data.frequentPositivePhrases.some((p) => p.phrase.includes("recommend"))
-  ) {
-    insights.push(
-      "Customers often recommend your service. Highlight these reviews for marketing."
-    );
-  }
-
-  // Negative phrases
-  if (
-    data.frequentNegativePhrases?.length &&
-    data.frequentNegativePhrases.some(
-      (p) => p.phrase.includes("dirty") || p.phrase.includes("headache")
-    )
-  ) {
-    insights.push(
-      "Some reviews mention cleanliness or discomfort — this may be hurting your image."
-    );
-  }
-
-  if (!insights.length) {
-    insights.push("No specific advice generated — sentiment is balanced.");
+  const sortedThemes = Object.entries(themeCounts).sort((a, b) => b[1] - a[1]);
+  if (sortedThemes[0][1] > 0) {
+    insights.push(`Most mentioned theme: ${sortedThemes[0][0]}`);
   }
 
   return insights;
-};
-
-module.exports = { generateInsights };
+}
