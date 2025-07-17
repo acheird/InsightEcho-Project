@@ -142,6 +142,7 @@ const UploadCSV = () => {
                 {previewResults.invalidReviews.map((entry, idx) => (
                   <li key={idx} className="bg-red-100 rounded p-2">
                     <div className="font-mono text-xs mb-1">
+                      <span className="font-semibold">Row {entry.row}:</span>{" "}
                       {JSON.stringify(entry.review)}
                     </div>
                     <ul className="list-disc ml-4 text-red-700">

@@ -13,13 +13,11 @@ const getInsights = async (req, res) => {
     const reviews = result.rows;
 
     if (reviews.length === 0) {
-      // Always return an array for consistent frontend handling
       return res.json([]);
     }
 
     const analysis = calculateSentiment(reviews);
-    const insights = await generateInsights(analysis); // <== await here!
-
+    const insights = await generateInsights(analysis);
     res.json(insights);
   } catch (error) {
     console.error("Error generating insights:", error);

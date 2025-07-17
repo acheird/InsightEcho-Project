@@ -13,12 +13,12 @@ const bulkUpload = async (req, res) => {
     const validReviews = [];
     const invalidReviews = [];
 
-    for (const review of parsedReviews) {
+    for (const [index, review] of parsedReviews.entries()) {
       const { isValid, errors } = validateReview(review);
       if (isValid) {
         validReviews.push(review);
       } else {
-        invalidReviews.push({ review, errors });
+        invalidReviews.push({ row: index + 1, review, errors });
       }
     }
 
@@ -32,7 +32,9 @@ const bulkUpload = async (req, res) => {
     }
 
     if (validReviews.length === 0) {
-      return res.status(400).json({ error: "No valid reviews found in CSV" });
+      return res
+        .status(400)
+        .json({ error: "No valid reviews found in CSV", invalidReviews });
     }
 
     await insertReviews(validReviews);
